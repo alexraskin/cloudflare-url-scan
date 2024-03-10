@@ -1,0 +1,9 @@
+.python-version
+.env
+__pycache__/*
+*.pyc
+*.pyo
+test.py
+dist/*
+build/*
+*.egg-info/*
