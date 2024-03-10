@@ -7,6 +7,7 @@ class CloudflareURLScanResponse:
     """
     Wrapper around the response from the Cloudflare URL Scanner API.
     """
+
     def __init__(self, response: httpx.Response) -> None:
         self.data = response
 

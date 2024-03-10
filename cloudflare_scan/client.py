@@ -141,7 +141,7 @@ class UrlScannerClient:
             method="GET",
             url=self._url_builder.build_get_screenshot_url(
                 uuid=uuid, resolution=resolution
-            )
+            ),
         )
         return CloudflareURLScanResponse(response)
 
@@ -235,10 +235,7 @@ class UrlScannerClient:
             uuid=scanId,
             url=url,
         )
-        response = self._http(
-            method="GET",
-            url=url
-        )
+        response = self._http(method="GET", url=url)
         return CloudflareURLScanResponse(response)
 
 
