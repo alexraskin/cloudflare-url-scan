@@ -5,7 +5,7 @@ from .types import ScanResult
 
 class CloudflareURLScanResponse:
     """
-    Wrapper around the response from the Cloudflare URL Scanner API.
+    Cloudflare URL Scanner API Response object.
     """
 
     def __init__(self, response: httpx.Response) -> None:

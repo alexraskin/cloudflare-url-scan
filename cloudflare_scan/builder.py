@@ -67,7 +67,7 @@ class UrlBuilder:
 
         if date_start:
             date_start = date_start.isoformat()
-        params = {
+        params: dict = {
             "account_scans": account_scans,
             "date_end": date_end,
             "date_start": date_start,
@@ -83,7 +83,7 @@ class UrlBuilder:
             "scanId": uuid,
             "url": url,
         }
-        filtered_params = {k: v for k, v in params.items() if v is not None}
+        filtered_params: dict = {k: v for k, v in params.items() if v is not None}
         url: URL = URL.build(
             scheme=self.scheme,
             host=self.host,

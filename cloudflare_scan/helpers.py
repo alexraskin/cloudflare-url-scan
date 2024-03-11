@@ -22,7 +22,6 @@ def create_request_body(
         body["screenshotsResolutions"] = screenshots_resolutions
 
     if custom_user_agent is not None:
-        # Ensure we adapt the dict to match the expected typed dict structure
         body["customHeaders"] = {"user-agent": custom_user_agent}
 
     if visibility is not None:

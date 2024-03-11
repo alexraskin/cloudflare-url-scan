@@ -3,4 +3,4 @@ __version__ = "0.2.0"
 __author__ = "Alex Raskin"
 __license__ = "MIT"
 
-from .client import UrlScannerClient
+from .client import UrlScannerClient, AsyncClient

@@ -12,11 +12,12 @@ Read more about the Cloudflare URL Scanner API [here](https://developers.cloudfl
 
 ## Features
 
-- Scan a URL 
+- Scan a URL
 - Get the scan result
 - Search for a scan by hostname
 - Search for a scan by UUID
 - Many more
+- Async support
 
 ## Installation
 
@@ -70,21 +71,25 @@ har = cf_client.get_har(uuid)
 
 # Get the scan by UUID
 scan = cf_client.get_scan(uuid)
+```
 
-# Search for a scan by hostname
-scan = cf_client.search("example.com")
+## Async Usage
 
-# Get the scan result
-result = scan.result
+```python
+from cloudflare_scan import AsyncClient
+import asyncio
 
-# Get the json response
-json = scan.json
+cf_client = AsyncClient(
+    cloudflare_api_key="",
+    cloudflare_account_id=""
+    )
 
-# Get the text response
-text = scan.text
+async def main():
+    scan = await cf_client.scan("https://www.google.com")
+    print(scan.result)
+    print(scan.json)
 
-# Get the status code
-status_code = scan.status_code
+asyncio.run(main())
 ```
 
 ## License
