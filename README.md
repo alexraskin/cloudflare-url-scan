@@ -24,7 +24,7 @@ Read more about the Cloudflare URL Scanner API [here](https://developers.cloudfl
 From pip:
 
 ```bash
-pip install cloudflare-url-scanner
+pip install cloudflarescan
 ```
 
 From github:
@@ -49,7 +49,7 @@ To make your first URL scan using the API, you must obtain a URL Scanner specifi
 from cloudflare_scan import UrlScannerClient
 
 
-cf_client = UrlScannerClient(
+cf_client = Client(
     cloudflare_api_key="", #or set the environment variable CLOUDFLARE_API_KEY
     cloudflare_account_id="", #or set the environment variable CLOUDFLARE_ACCOUNT_ID
 )

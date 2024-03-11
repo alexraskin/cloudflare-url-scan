@@ -9,7 +9,7 @@ from .helpers import create_request_body
 from .response import CloudflareURLScanResponse
 
 
-class UrlScannerClient:
+class Client:
     """
     Client to interact with the Cloudflare URL Scanner API.
 
@@ -283,16 +283,6 @@ class AsyncClient:
         self._timeout = timeout
         self._http_client = httpx.AsyncClient(timeout=self._timeout)
         self._url_builder = UrlBuilder(self.cloudflare_account_id)
-
-    def __str__(self) -> str:
-        return (
-            f"AsyncUrlScannerClient(cloudflare_account_id={self.cloudflare_account_id})"
-        )
-
-    def __repr__(self) -> str:
-        return (
-            f"AsyncUrlScannerClient(cloudflare_account_id={self.cloudflare_account_id})"
-        )
 
     def _build_headers(self) -> Headers:
         return {
