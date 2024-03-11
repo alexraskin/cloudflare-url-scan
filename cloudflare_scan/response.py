@@ -11,6 +11,21 @@ class CloudflareURLScanResponse:
     def __init__(self, response: httpx.Response) -> None:
         self.data = response
 
+    def __str__(self) -> str:
+        return f"CloudflareURLScanResponse(status_code={self.status_code})"
+
+    def __repr__(self) -> str:
+        return f"CloudflareURLScanResponse(status_code={self.status_code})"
+
+    def __bool__(self) -> bool:
+        return self.success
+
+    def __iter__(self):
+        return iter(self.json)
+
+    def __getitem__(self, key):
+        return self.json[key]
+
     @property
     def json(self) -> dict:
         return self.data.json()

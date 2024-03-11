@@ -1,3 +1,5 @@
+from typing import Optional
+
 from yarl import URL
 from datetime import datetime
 
@@ -45,20 +47,20 @@ class UrlBuilder:
 
     def build_get_scan_url(
         self,
-        account_scans: bool = None,
-        date_end: datetime = None,
-        date_start: datetime = None,
-        hostname: str = None,
-        ip: str = None,
-        limit: int = None,
-        next_cursor: str = None,
-        page_hostname: str = None,
-        page_ip: str = None,
-        page_path: str = None,
-        page_url: str = None,
-        path: str = None,
-        uuid: str = None,
-        url: str = None,
+        account_scans: Optional[str] = None,
+        date_end: Optional[datetime] = None,
+        date_start: Optional[datetime] = None,
+        hostname: Optional[str] = None,
+        ip: Optional[str] = None,
+        limit: Optional[int] = None,
+        next_cursor: Optional[str] = None,
+        page_hostname: Optional[str] = None,
+        page_ip: Optional[str] = None,
+        page_path: Optional[str] = None,
+        page_url: Optional[str] = None,
+        path: Optional[str] = None,
+        uuid: Optional[str] = None,
+        url: Optional[str] = None,
     ) -> str:
         if date_end:
             date_end = date_end.isoformat()
@@ -87,5 +89,4 @@ class UrlBuilder:
             host=self.host,
             path=self.base_path.format(self.cloudflare_account_id),
         ).with_query(filtered_params)
-        print(url.human_repr())
         return url.human_repr()

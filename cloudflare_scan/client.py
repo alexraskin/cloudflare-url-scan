@@ -3,10 +3,10 @@ import httpx
 from datetime import datetime
 from typing import Optional, Literal
 
+from .types import Headers
+from .builder import UrlBuilder
 from .helpers import create_request_body
 from .response import CloudflareURLScanResponse
-from .builder import UrlBuilder
-from .types import Headers
 
 
 class UrlScannerClient:
@@ -57,7 +57,10 @@ class UrlScannerClient:
         url: str,
         headers: dict[str, str] = None,
         data: dict[str, str] = None,
-    ):
+    ) -> httpx.Response:
+        """
+        Make an HTTP request to the Cloudflare API.
+        """
         if headers is None:
             headers = self._build_headers()
         return self._http_client.request(
