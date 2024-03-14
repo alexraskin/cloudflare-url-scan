@@ -60,13 +60,14 @@ class UrlBuilder:
         page_url: Optional[str] = None,
         path: Optional[str] = None,
         uuid: Optional[str] = None,
-        url: Optional[str] = None,
+        url: Optional[str] = None,  # type: ignore
     ) -> str:
-        if date_end:
+        if date_end is not None:
             date_end = date_end.isoformat()
 
         if date_start:
             date_start = date_start.isoformat()
+
         params: dict = {
             "account_scans": account_scans,
             "date_end": date_end,

@@ -3,7 +3,6 @@ import httpx
 from datetime import datetime
 from typing import Optional, Literal
 
-from .types import Headers
 from .builder import UrlBuilder
 from .helpers import create_request_body
 from .response import CloudflareURLScanResponse
@@ -43,17 +42,11 @@ class Client:
 
         self._timeout = timeout
         self._http_client = httpx.Client(timeout=self._timeout)
-        self._url_builder = UrlBuilder(self.cloudflare_account_id)
+        self._url_builder = UrlBuilder(self.cloudflare_account_id)  # type: ignore
 
-    def __str__(self) -> str:
-        return f"UrlScannerClient(cloudflare_account_id={self.cloudflare_account_id})"
-
-    def __repr__(self) -> str:
-        return f"UrlScannerClient(cloudflare_account_id={self.cloudflare_account_id})"
-
-    def _build_headers(self) -> Headers:
+    def _build_headers(self) -> dict[str, str]:
         return {
-            "Content-Type": "application/json",
+            "ContentType": "application/json",
             "Authorization": f"Bearer {self.cloudflare_api_key}",
         }
 
@@ -61,16 +54,13 @@ class Client:
         self,
         method: Literal["GET", "POST"],
         url: str,
-        headers: dict[str, str] = None,
-        data: dict[str, str] = None,
+        data: dict = None,  # type: ignore
     ) -> httpx.Response:
         """
         Make an HTTP request to the Cloudflare API.
         """
-        if headers is None:
-            headers = self._build_headers()
         return self._http_client.request(
-            method=method, url=url, headers=headers, json=data
+            method=method, url=url, headers=self._build_headers(), json=data
         )
 
     def scan(
@@ -103,13 +93,13 @@ class Client:
         body = create_request_body(
             url=url,
             screenshots_resolutions=screenshots_resolutions,
-            custom_user_agent=custom_user_agent,
+            custom_user_agent=custom_user_agent,  # type: ignore
             visibility=visibility,
         )
         response = self._http(
             method="POST",
             url=self._url_builder.build_scan_url(),
-            data=body,
+            data=body,  # type: ignore
         )
         return CloudflareURLScanResponse(response=response)
 
@@ -175,7 +165,7 @@ class Client:
     def search(
         self,
         scanId: Optional[str] = None,
-        account_scans: Optional[bool] = None,
+        account_scans: Optional[str] = None,
         date_end: Optional[datetime] = None,
         date_start: Optional[datetime] = None,
         hostname: Optional[str] = None,
@@ -282,9 +272,9 @@ class AsyncClient:
 
         self._timeout = timeout
         self._http_client = httpx.AsyncClient(timeout=self._timeout)
-        self._url_builder = UrlBuilder(self.cloudflare_account_id)
+        self._url_builder = UrlBuilder(self.cloudflare_account_id)  # type: ignore
 
-    def _build_headers(self) -> Headers:
+    def _build_headers(self) -> dict[str, str]:
         return {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.cloudflare_api_key}",
@@ -294,8 +284,8 @@ class AsyncClient:
         self,
         method: Literal["GET", "POST"],
         url: str,
-        headers: dict[str, str] = None,
-        data: dict[str, str] = None,
+        headers: dict[str, str] = None,  # type: ignore
+        data: dict[str, str] = None,  # type: ignore
     ) -> httpx.Response:
         """
         Make an HTTP request to the Cloudflare API.
@@ -337,13 +327,13 @@ class AsyncClient:
         body = create_request_body(
             url=url,
             screenshots_resolutions=screenshots_resolutions,
-            custom_user_agent=custom_user_agent,
+            custom_user_agent=custom_user_agent,  # type: ignore
             visibility=visibility,
         )
         response = await self._http(
             method="POST",
             url=self._url_builder.build_scan_url(),
-            data=body,
+            data=body,  # type: ignore
         )
         return CloudflareURLScanResponse(response=response)
 
@@ -409,7 +399,7 @@ class AsyncClient:
     async def search(
         self,
         scanId: Optional[str] = None,
-        account_scans: Optional[bool] = None,
+        account_scans: Optional[str] = None,
         date_end: Optional[datetime] = None,
         date_start: Optional[datetime] = None,
         hostname: Optional[str] = None,
